@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ height:100%; width:100%; margin:0; padding:0;overflow:hidden;}
+</style>
+</head>
+
+<body>
+<a href="#"></a>
+<div><div id="id"></div><div id="id"></div></div>
+<script>
+/*var arr=[1,2],arrL=arr.length;
+  while(arrL>0){
+	  alert(arr[--arrL])
+	
+	  
+	  };
+*/	  
+	  
+	  
+//alert(document.querySelectorAll("a").concat(document.querySelectorAll("div")).length)
+//document.write(Object.prototype.toString.call(window)+":"+Object.prototype.toString.call(window.document)+":"+Object.prototype.toString.call({})+":"+Object.prototype.toString.call([])+":"+Object.prototype.toString.call(window.document.getElementsByTagName("body"))+":"+Object.prototype.toString.call(""))
+//alert(typeof window +":"+typeof document +":"+typeof {}+":"+typeof []+":"+typeof window +":"+typeof window +":"+typeof window )
+//var ifr=document.querySelector("iframe").contentWindow;
+//alert(ifr.document.getElementById("#kw1"))
+/*window.onload=(function(){  
+var iObj=document.querySelector("iframe").contentWindow;  
+alert(iObj.document.getElementsByTagName("div")[0].innerHTML="00");  
+});*/ 
+
+
+
+//getByCss("#id","div","#info iframe:frame div")				//当前窗体元素
+getByCss(window,"#id")			//指定window元素
+//getByCss(document,"#id","div","#info iframe:frame div")		//指定document元素
+//getByCss(element,"div")										//指定element元素
+//getByCss("baidu.com","#id","div","#info iframe:frame div")	//指定URL元素
+
+/*getByCss(["baidu.com","#id","div","#info iframe:frame div"],
+		 [window,"#id","div","#info iframe:frame div"],
+		 [document,"#id","div","#info iframe:frame div"],
+		 [element,"#id","div","#info iframe:frame div"],
+		 ["#id","div","#info iframe:frame div"])			//返回以上类型组合
+*/		 
+		 
+		 
+/*
+function getByCss() {
+	alert("ww")
+	
+function used(a,b){return a.indexOf(b)+1}
+function collectionToArray(collection){  
+    var ary = [];  
+    for(var i=0, len = collection.length; i < len; i++){  
+		ary[i]=collection[i];  
+    }  
+    return ary;  
+}
+
+    var reNodeList =[], arg = arguments,frame=":frame";
+    var type =Object.prototype.toString.call(arg[0]);
+	
+used(type,"String")		&&
+used(arg[0],"/")		&&
+getByCss(arg);
+	
+	
+(
+used(type, "NodeList") 	||
+used(type, "global") 	||
+arg[0].nodeType		 	||
+used(type, "HTMLDocument")
+) && (reNodeList=reNodeList.concat(oneFind(arg)));
+
+
+
+function oneFind() {
+	var reNodeList=[], arg =arguments;
+    var type =Object.prototype.toString.call(arg[0]);
+		used(type,"Arguments")&&(arg=arguments[0],type =Object.prototype.toString.call(arg[0]));
+
+		arg[0].document&&(arg[0]=arg[0].document);//document处理;
+	var frameArr=[],frameDoc=arg[0];
+		for(var path=1,pathL=arg.length;path<pathL;path++){
+			frameArr=arg[index].split(frame);
+				for(var cssPath=0,cssPathL=frameArr.length-1;cssPath<cssPathL;cssPath++){
+					if(!cssPathL)break;
+					frameDoc=window.external.GetDocumentFromWindow(frameDoc.querySelector(frameArr[cssPath]).contentWindow)
+					}
+		reNodeList=reNodeList.concat(collectionToArray(frameDoc.querySelectorAll(frameArr[cssPathL])))
+		}
+return reNodeList
+}
+   
+   
+
+
+return reNodeList
+ }
+*/
+
+
+
+function getByCss() {
+
+    function used(a, b) { return a.indexOf(b) + 1 }
+    function collectionToArray(collection) {var ary = [];
+        for (var i = 0, len = collection.length; i < len; i++) {ary[i] = collection[i]}return ary;
+    }
+
+    var reNodeList = [], arg = arguments, frame = ":frame";
+    var type = Object.prototype.toString.call(arg[0]);
+
+used(type, "String") &&
+(used(arg[0], "/")) &&
+(arg[0] = findWindow(arg[0])) &&
+(reNodeList = reNodeList.concat(oneFind(arg)));
+
+
+(
+used(type, "NodeList") ||
+used(type, "global") ||
+arg[0].nodeType ||
+used(type, "HTMLDocument")
+) && (reNodeList = reNodeList.concat(oneFind(arg)));
+
+
+
+    function oneFind() {
+        var reNodeList = [], arg = arguments;
+        var type = Object.prototype.toString.call(arg[0]);
+		alert(type)
+        used(type, "Object") && (arg = arguments[0])&&( type = Object.prototype.toString.call(arg[0]));//处理参数
+
+		arg[0].document && (arg[0] = arg[0].document); //document处理;
+		var frameArr = [], frameDoc = arg[0];
+        for (var path = 1, pathL = arg.length; path < pathL; path++) {
+			frameArr = arg[path].split(frame);
+            for (var cssPath = 0, cssPathL = frameArr.length - 1; cssPath < cssPathL; cssPath++) {
+                if (!cssPathL) break;
+                frameDoc = window.external.GetDocumentFromWindow(frameDoc.querySelector(frameArr[cssPath]).contentWindow)
+                }
+            reNodeList = reNodeList.concat(collectionToArray(frameDoc.querySelectorAll(frameArr[cssPathL])))
+        }
+        return reNodeList
+    }
+	
+	
+return reNodeList
+}
+
+
+ 
+</script>
+</body>
+</html>
